@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import helmet from "helmet";
+import cors from "cors";
+import config_cors from "./config/cors-config";
 
 // import db from './config/db';
 import router from "./routers/comic.router";
@@ -12,6 +14,7 @@ const port = process.env.API_PORT;
 
 const app = express();
 // db.connect('next', 'localhost', '27017');
+app.use(cors(config_cors));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(helmet());
