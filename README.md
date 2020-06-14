@@ -1,6 +1,6 @@
 # Next-Comics-API
 
-> A Node.js project, with Express.js + Firebase. Require admin service account to write in Database/Firestore
+> A Node.js project, with Express.js + Firebase. Require an admin service account to write in Database/Firestore
 
 ## Build Setup
 
