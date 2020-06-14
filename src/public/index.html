@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Next API</title>
+</head>
+<body>
+    <div id="app" >
+
+        <ul>
+            <li v-for="item in usuario.linguagens">{{item.nome}}</li>
+        </ul>
+        <br><br>
+
+        <label for="">Nome</label>
+        <input type="text" v-model="cliente.nome">
+
+        <br><br>
+
+        <label for="">Telefone</label>
+        <input type="text" v-model="cliente.tel">
+
+        <br><br>
+        
+        <label for="">Gostou do Mangá</label>
+        <br>
+
+        <input type="radio" value="sim" v-model="cliente.gostou">Sim
+        <input type="radio" value="não" v-model="cliente.gostou">Não
+        
+        <br><br>
+
+        <label for="">Áreas de interesse</label>
+        <br><br>
+        <input type="checkbox" value="Anime" v-model="cliente.interesses">Anime
+        <input type="checkbox" value="Ação" v-model="cliente.interesses">Ação
+        <input type="checkbox" value="Comedia" v-model="cliente.interesses">Comedia
+        <input type="checkbox" value="Terror" v-model="cliente.interesses">Terror
+        <br><br><br>
+
+        Nome: {{cliente.nome}} <br>
+        Telefone: {{cliente.tel}} <br>
+        Gostou: {{cliente.gostou}} <br>
+        Interesses: {{cliente.interesses}} <br>
+    </div>
+
+    
+    <script src="https:/unpkg.com/vue"></script>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                status: false,
+                titulo: "Next",
+                cliente: {
+                    nome: "",
+                    tel: "",
+                    gostou: "",
+                    interesses: []
+                },
+                usuario: {
+                    id: 1,
+                    nome: "Marcelo",
+                    profissao: "Programador",
+                    linguagens: [
+                        {nome: "Java"},
+                        {nome: "JavaScript"},
+                        {nome: "Python"}
+                    ]
+                }
+
+            }
+        });
+    </script>
+</body>
+</html>
