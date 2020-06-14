@@ -16,6 +16,7 @@ node_modules
 nbproject
 Thumbs.db
 next-commics-firebase-adminsdk.json
+.env
 
 # Numerous always-ignore extensions
 *.diff
