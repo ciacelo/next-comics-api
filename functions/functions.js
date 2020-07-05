@@ -1,28 +1,29 @@
-import express from "express";
-import bodyParser from "body-parser";
-import dotenv from "dotenv";
-import helmet from "helmet";
-import cors from "cors";
-import config_cors from "./config/cors-config";
+const functions = require("firebase-functions");
+const admin = require("./src/config/firebase-admin");
+const express = require("express");
+const helmet = require("helmet");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
-// import db from './config/db';
-import router from "./routers/comic.router";
+const { requests } = require("./src/config/cors-config");
+
+const { router } = require("./src/routers/comic.router");
 
 dotenv.config();
 
 const port = process.env.API_PORT;
 
 const app = express();
-// db.connect('next', 'localhost', '27017');
-app.use(cors(config_cors));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
+app.use(cors(requests));
+app.use(express.json());
 app.use(helmet());
 
 app.get("/", (req, res) => {
-  res.sendFile(`${__dirname}/public/index.html`);
+  console.log("Bem vindo: ", req.body);
+  res.status(200).send("Bem vindo a API, da Next_Comics! ;-)");
 });
-app.use("/", router);
+app.use(router);
 
 app.listen(port, () => {
   console.log(`Server is running at localhost:${port}`);
@@ -49,3 +50,9 @@ process
     console.error(err, "Uncaught Exception thrown");
     process.exit(1);
   });
+
+const next_api_functions = functions.https.onCall(app);
+
+module.exports = {
+  next_api_functions,
+};

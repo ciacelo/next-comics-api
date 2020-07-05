@@ -2,23 +2,31 @@
   "name": "next",
   "version": "1.0.0",
   "description": "Plataforma criada para leitura de quadrinhos.",
-  "main": "index.js",
+  "main": "functions/functions.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
-    "build": "babel src -d dist --presets es2015",
-    "watch": "babel src -w -d dist --presets es2015"
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
   },
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dcx-cursos/grupo-pas-next"
+    "url": "https://github.com/ciacelo/next-comics-api"
+  },
+  "engines": {
+    "node": "10"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
+    "express-async-handler": "^1.1.4",
     "firebase-admin": "^8.12.1",
+    "firebase-functions": "^3.7.0",
     "helmet": "^3.23.0"
   },
   "devDependencies": {
@@ -31,6 +39,9 @@
     "babel-preset-minify": "^0.5.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "firebase-functions-test": "^0.2.0",
+    "firebase-tools": "^8.4.1"
   }
 }

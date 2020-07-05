@@ -28,4 +28,5 @@ next-commics-firebase-adminsdk.json
 *.swp
 *.vi
 *.zip
+.firebase
 *~

@@ -1,6 +1,6 @@
 // import mongoose from 'mongoose';
 
-export function comicSchema(data) {
+function comicSchema(data) {
   const {
     title,
     subtitle,
@@ -31,3 +31,6 @@ export function comicSchema(data) {
 
 // const Comic = mongoose.model('Comic', comicSchema);
 // export default Comic;
+module.exports = {
+  comicSchema,
+};

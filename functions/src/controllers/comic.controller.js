@@ -1,17 +1,17 @@
-import admin from "../config/firebase-admin";
-import { comicSchema } from "../models/comic.model";
-import { referrerPolicy } from "helmet";
+const { admin } = require("../config/firebase-admin");
+const { comicSchema } = require("../models/comic.model");
+// const { referrerPolicy } = require("helmet");
 
 const db = admin.firestore();
 
-exports.findAll = (req, res) => {
-  Comic.find()
-    .then((comics) => {
-      res.json(comics);
-    })
-    .catch((e) => {
-      res.send(e);
-    });
+exports.findAll = async (req, res) => {
+  const data = [];
+  const ref = db.collection("commics");
+  const snapshot = await ref.get();
+  snapshot.forEach((doc) => {
+    data.push(Object.assign({}, { uid: doc.id }, doc.data()));
+  });
+  return res.status(200).json(data);
 };
 
 exports.findById = (req, res) => {
