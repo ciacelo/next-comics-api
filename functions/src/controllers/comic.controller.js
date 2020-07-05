@@ -1,5 +1,6 @@
 const { admin } = require("../config/firebase-admin");
 const { comicSchema } = require("../models/comic.model");
+const { savePhoto, deletePhoto} = require("../services/file-service");
 // const { referrerPolicy } = require("helmet");
 
 const db = admin.firestore();
@@ -27,8 +28,9 @@ exports.findById = (req, res) => {
 };
 
 exports.save = async (req, res) => {
+  // const path = !!req.file ? await savePhoto(req.file) : null;
   const commic = comicSchema(req.body);
-  const commicCollection = db.collection("commics");
+  const commicCollection = db.collection("comics");
   const ref = await commicCollection.add(commic);
   const data = Object.assign({}, { uid: ref.id }, commic);
   return res.status(201).json(data);
@@ -81,3 +83,26 @@ exports.delete = (req, res) => {
       res.send(e);
     });
 };
+
+// funções de upload
+exports.saveImage = async (req, res) => {
+  const comic_id = req.query.comic_id;
+  const file = req.file;
+  const comicRef = db.collection("comics").doc(""+comic_id);
+
+  const doc = await comicRef.get();
+  if (!doc.exists) {
+    throw new Error("comic não existe!")
+  }
+
+  const { path, publicPath } = await savePhoto(`comics/${comic_id}`, file, true);
+
+  await comicRef.set({
+    ...doc.data(),
+    images: !!doc.data().images 
+    ? [ ...doc.data().images, { path, publicPath }]
+    : [{ path, publicPath }],
+  });
+
+  return res.status(200).json({ path, publicPath });
+}
