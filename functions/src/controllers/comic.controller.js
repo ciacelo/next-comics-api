@@ -7,7 +7,7 @@ const db = admin.firestore();
 
 exports.findAll = async (req, res) => {
   const data = [];
-  const ref = db.collection("commics");
+  const ref = db.collection("comics");
   const snapshot = await ref.get();
   snapshot.forEach((doc) => {
     data.push(Object.assign({}, { uid: doc.id }, doc.data()));
